@@ -8,18 +8,32 @@ producer = kafka.KafkaProducer(
     value_serializer=lambda v: json.dumps(v).encode(),
 )
 
-def on_msg(ws, msg):           # ← keep only 2 parameters
+def on_msg(ws, msg):
+    # --- debug print (leave as-is) -----------------------------------------
     print("WS payload:", msg[:120], file=sys.stderr)
 
-    tick = json.loads(msg)
+    raw = json.loads(msg)               # ① parse Binance event
+
+    # ② map raw keys → clean schema  (this is NEW)
+    tick = {
+        "symbol": raw["s"],                      # BTCUSDT
+        "price":  float(raw["p"]),               # 109199.01
+        "qty":    float(raw["q"]),               # 0.00021
+        "side":   "BUY" if raw["m"] is False else "SELL",
+        "ts":     raw["T"],                      # epoch-ms
+    }
+
+    # ─ debug: confirm we’re sending the mapped dict  (this is NEW)
+    print("SENDING:", tick, file=sys.stderr)
+
+    
     fut = producer.send("raw_ticks", tick)
     fut.add_errback(lambda exc: print("Kafka send error:", exc, file=sys.stderr))
-    producer.flush(0)          # debug only – remove once things work
+    # producer.flush(0)   # <- comment or delete once you're happy
 
-def on_err(ws, err):           # same fix for on_err
+def on_err(ws, err):
     print("WS error:", err, file=sys.stderr)
 
-# ⬇⬇  switched host: Binance.US is allowed from U.S. IPs
 ws = websocket.WebSocketApp(
     "wss://stream.binance.us:9443/ws/btcusdt@trade",
     on_message=on_msg,
