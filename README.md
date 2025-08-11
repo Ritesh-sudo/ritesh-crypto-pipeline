@@ -56,12 +56,6 @@ flowchart LR
 
 ⸻
 
-📷 Dashboard Preview
-
-(Add screenshot here after running your dashboard)
-
-⸻
-
 ⚙️ Installation & Setup
 
 # Clone the repository
