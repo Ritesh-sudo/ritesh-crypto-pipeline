@@ -29,7 +29,6 @@ A real-time cryptocurrency price tracking and anomaly detection system that moni
 
 ## 📊 Architecture Diagram
 
-```mermaid
 flowchart LR
     A[Crypto Exchanges] -->|Live Prices (WebSocket / REST)| B[Data Ingestion Service]
     B --> C[Data Preprocessing & Cleaning]
