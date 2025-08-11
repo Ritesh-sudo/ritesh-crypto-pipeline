@@ -41,13 +41,16 @@ flowchart LR
     D --> F[Backend API (FastAPI)]
 	
     F --> G[React Dashboard]
-	
+
     E -->|Email / Push / Webhooks| H[End Users]
 	
     G --> H
 
 
 ⸻
+📷 Dashboard Preview
+<img width="1536" height="1024" alt="317EA8EE-5F44-4EBC-9373-6C5E5C00BA90" src="https://github.com/user-attachments/assets/501e10d1-a1fc-4be6-a17f-a7a99e6bd945" />
+
 
 📊 Anomaly Detection Methods
 	•	Statistical Thresholding: Z-Score, Interquartile Range (IQR)
