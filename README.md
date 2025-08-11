@@ -31,12 +31,19 @@ A real-time cryptocurrency price tracking and anomaly detection system that moni
 
 flowchart LR
     A[Crypto Exchanges] -->|Live Prices (WebSocket / REST)| B[Data Ingestion Service]
+	
     B --> C[Data Preprocessing & Cleaning]
+	
     C --> D[Anomaly Detection Engine]
+	
     D -->|Detected Anomalies| E[Notification Service]
+	
     D --> F[Backend API (FastAPI)]
+	
     F --> G[React Dashboard]
+	
     E -->|Email / Push / Webhooks| H[End Users]
+	
     G --> H
 
 
